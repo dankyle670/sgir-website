@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import { getEntryBySlug } from "astro:content";
+
+const entry = await getEntryBySlug("about", "index");
+const { Content } = await entry.render();
+const { title, description, meta_title, image, what_i_do } = entry.data;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+<section id="AboutUs" class="py-24 bg-gray-100">
+  <div class="container mx-auto max-w-7xl px-8 md:px-12">
+    <div class="grid gap-12 lg:grid-cols-1 md:grid-cols-1">
+      <div class="bg-white rounded-xl p-6 shadow-lg relative">
+        <div class="flex items-center justify-center bg-gray-100 rounded-full w-10 h-10 mx-auto mb-4">
+          <ion-icon name="scan-outline" class="md:h-4 md:w-4 text-green-600"></ion-icon>
+        </div>
+        <div class="text-lg text-gray-500">
+          <h2 class="text-xl font-bold text-red-600 mb-4">« SOCIETE GENERALE D’INVESTISSEMENT ET DE REALISATION » (SGIR SA)</h2>
+          <ul class="list-disc pl-6">
+            <li><strong>Nom de l’entreprise:</strong> SOCIETE GENERALE D’INVESTISSEMENT ET DE REALISATION (SGIR SA)</li>
+            <li><strong>Statut juridique:</strong> Société Anonyme avec Conseil d’Administration</li>
+            <li><strong>Capital:</strong> 50 000 000 FCFA</li>
+            <li><strong>Adresse:</strong> Abidjan Cocody II Plateaux Versant 1 villa 59, 08 BP 1127 ABJ 08</li>
+            <li><strong>Téléphone:</strong> 22527403/04</li>
+            <li><strong>Fax:</strong> 22527405</li>
+            <li><strong>RCCM:</strong> N CI-ABJ-2013-B-3501</li>
+            <li><strong>Changement de siège:</strong> Transfert du siège à ABIDJAN Cocody II Plateaux Versant 1, Villa 59, 08 Boîte Postale 3138 Abidjan 08</li>
+            <li><strong>Nomination:</strong> Nomination d’un nouveau directeur général de la société anonyme</li>
+            <li><strong>Procès-verbal de dépôt:</strong> Numéro: 006115/GTCA/2019 du 04/03/19</li>
+            <li><strong>RCCM numéro:</strong> CI-ABJ-2019-M-06222</li>
+          </ul>
+          <br>
+        </div>
+        <div class="flex justify-center mt-6">
+          <a href="/contact" class="bg-red-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-red-700">Get In Touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+  <section class="section pt-0">
+    <div class="container">
+      <h3 class="page-heading mb-20">{what_i_do.title}</h3>
+      <div class="row justify-center gy-4 text-center">
+        {
+          what_i_do.items.map((item: any) => (
+            <div class="lg:col-4 md:col-6">
+              <i class="{{.icon}} fa-3x text-primary mb-4" />
+              <h4 class="text-dark font-weight-700 mb-3">{item.title}</h4>
+              <p>{item.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
